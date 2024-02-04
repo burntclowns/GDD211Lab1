@@ -5,21 +5,26 @@ using UnityEngine;
 public class PickupLas : MonoBehaviour
 {
 
-    bool pickup = false;
+    
     public GameObject thisGameObject;
 
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter (Collider other)
     {
         Debug.Log("collided");
 
-        AnimController player = collision.gameObject.GetComponent<AnimController>();
+        AnimController player = other.gameObject.GetComponent<AnimController>();
+        
+
         if (player != null)
         {
             player.OnPickup();
             Destroy(thisGameObject);
+            //text.
+            
             
         }
 
     }
+
 }

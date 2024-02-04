@@ -2,53 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class AnimController : MonoBehaviour
 {
     [SerializeField] private Animator ani;
-
-  
-    //setting conditions and variables
-    float WalkSpeed = 2;
+    public float WalkSpeed = 2;
     public float Gravity = -9.8f;
-    
-
-
+    public float jumpForce;
+    public Rigidbody RB;
 
     void Update()
     {
-        //get input for animations
+        // Get input for animations
         float walkH = Input.GetAxis("Horizontal");
         float walkV = Input.GetAxis("Vertical");
 
+        ani.SetBool("pickup", false);
 
-        //activating animations
-        if (walkV != 0)
+        // Activate animations
+        if (walkH != 0 || walkV != 0)
         {
-            ani.SetFloat("walkSpeed", 5);
-            transform.position += new Vector3(walkV * Time.deltaTime, 0f);
+            ani.SetFloat("walkSpeed", WalkSpeed);
+            transform.Translate(new Vector3(walkV, 0f, walkH) * WalkSpeed * Time.deltaTime);
         }
         else
         {
             ani.SetFloat("walkSpeed", 0);
         }
 
-        if (walkH != 0)
+        if (Input.GetButtonDown("Jump"))
         {
-            ani.SetFloat("walkSpeed", 5);
-            transform.position += new Vector3(walkH * Time.deltaTime, 0f);
+            RB.AddForce(0, jumpForce, 0);
+            ani.SetTrigger("jump");
         }
-        else
-        {
-            ani.SetFloat("walkSpeed", 0);
 
-        }  
+        
     }
+
+
 
     public void OnPickup()
     {
-        bool pickup = true;
+        ani.SetBool("pickup", true);
         Debug.Log("Pickup");
     }
-
 }
