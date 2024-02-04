@@ -16,7 +16,7 @@ public class AnimController : MonoBehaviour
         float walkH = Input.GetAxis("Horizontal");
         float walkV = Input.GetAxis("Vertical");
 
-        ani.SetBool("pickup", false);
+        //ani.SetBool("pickup", false);
 
         // Activate animations
         if (walkH != 0 || walkV != 0)
@@ -44,5 +44,14 @@ public class AnimController : MonoBehaviour
     {
         ani.SetBool("pickup", true);
         Debug.Log("Pickup");
+
+        //invoke this void so the bool resets after the animation is complete (after 4.2 s)
+        Invoke("ResetPickup", 4.2f);
+    }
+
+    private void ResetPickup()
+    {
+        ani.SetBool("pickup", false);
+        Debug.Log("Pickup bool has been reset!");
     }
 }
