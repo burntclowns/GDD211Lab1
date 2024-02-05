@@ -17,12 +17,14 @@ public class ScoreTracker : MonoBehaviour
     void UpdateScore()
     {
         scoreText.text = "Score: " + score;
+        Debug.Log("score updated!");
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Lasagna"))
         {
+            Debug.Log("Compared Lasagna Tag");
             IncreaseScore(1);
             UpdateScore();
         }
@@ -31,5 +33,6 @@ public class ScoreTracker : MonoBehaviour
     void IncreaseScore(int points)
     {
         score += points;
+        Debug.Log("score increased!");
     }
 }
